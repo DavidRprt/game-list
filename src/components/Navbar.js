@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import UserButtons from '../components/UserButtons'
 
 const Navbar = () => {
 
@@ -18,14 +19,11 @@ const Navbar = () => {
         <nav style={navStyle}>
             <div>
                 <Link style={padding} to="/">Home</Link>
-                <Link style={padding} to="/latest">Latest Games</Link>
-                <Link style={padding} to="/wishlist">Wishlist</Link>
-                <Link style={padding} to="/games">My games</Link>
+                <Link style={padding} to="/discover">Discover</Link>
+                <Link style={padding} to="/radar">Radar</Link>
+                <Link style={padding} to="/completed">Completed</Link>
             </div>
-            <div>
-                <Link style={padding} to="/login"><button>Log in</button></Link>
-                <Link style={padding} to="/signup"><button>Sign up</button></Link>
-            </div>
+            <UserButtons />
         </nav>
     )
 }
