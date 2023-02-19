@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../reducers/userReducer'
-import { resetGames  } from '../reducers/myGamesReducer'
 
 const UserButtons = () => {
     const user = useSelector(state => state.user)
@@ -30,8 +29,6 @@ const UserButtons = () => {
     const handleLogout = () => {
         window.localStorage.clear()
         dispatch(setUser(false))
-        dispatch(resetGames())
-
     }
 
     return(
