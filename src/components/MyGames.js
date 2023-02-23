@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import GameList from './GameListOwn'
+import GameList from './GameList'
 
 
 const MyGames = ({completed}) => {
@@ -9,7 +9,7 @@ const MyGames = ({completed}) => {
     const completedGames = completed ? user.games.filter(game => game.completed) : user.games.filter(game => game.radar)
     return(
       <div >
-        <h1>My completed games</h1>
+        <h1>{completed ? "My completed games" : "Games on my radar"}</h1>
           <GameList gamesList={completedGames}/>
       </div>
     )}

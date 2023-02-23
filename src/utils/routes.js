@@ -4,11 +4,12 @@ import Discover from '../components/Discover'
 import LoginForm from '../components/LoginForm'
 import SignUpForm from '../components/SignUpForm'
 import MyGames from '../components/MyGames'
+import HomeScreen from '../components/HomeScreen'
 
 const RoutesConfig = () => {
   return (
     <Routes>
-      <Route path="/" element={<div>Home</div>} />
+      <Route path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/signup" element={<SignUpForm />} />
       <Route path="/radar" element={<MyGames completed={false}/>} />

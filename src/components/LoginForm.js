@@ -1,7 +1,7 @@
 import { useField } from "../hooks"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import loginService from '../services/loginService'
+import userService from '../services/userService'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../reducers/userReducer'
 
@@ -16,9 +16,14 @@ const LoginForm = () => {
         const userObject = { username: username.value, password: password.value }
         
         try{
-          const user = await loginService.loginService(userObject)
+          const user = await userService.login(userObject)
+          const storageObject = {
+            id: user.id,
+            token: user.token,
+            username: user.username
+          }
           window.localStorage.setItem(
-            'loggedUser', JSON.stringify(user)
+            'loggedUser', JSON.stringify(storageObject)
           )
           dispatch(setUser(user))
           username.reset()

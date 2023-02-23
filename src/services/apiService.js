@@ -13,10 +13,11 @@ const getOwn = async (id) => {
 }
 
 const getSingleGame = async (slug) => {
-  const url = `https://api.rawg.io/api/games/${slug}?key=adecf36d899846f3a08543009e1e7e5b`
-  console.log(url)
+  const url = `https://api.rawg.io/api/games/${slug}?key=${process.env.REACT_APP_KEY}`
   const response = await axios.get(url)
     return response.data
 }
+
+
 // eslint-disable-next-line
 export default { getLatest, getOwn, getSingleGame }

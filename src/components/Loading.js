@@ -29,7 +29,6 @@ const Loading = () => {
   )
 }
 
-// Define the @keyframes rule that defines the animation
 const keyframes = `
   @keyframes spin {
     to {

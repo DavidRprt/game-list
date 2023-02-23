@@ -1,7 +1,13 @@
-import './Game.css';
+import './Game.css'
+import { useSelector, useDispatch } from 'react-redux'
+import gameService from "../services/gameService"
+import { addGame, updateGame } from '../reducers/userReducer'
 
 const Game = ({game}) => {
 
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  
   const platforms = game.stores.map(o => o.store.slug)
   
   const platformIcons = {
@@ -9,6 +15,59 @@ const Game = ({game}) => {
     "xbox-store": "https://cdn-icons-png.flaticon.com/512/1/1321.png",
     "steam": "https://e7.pngegg.com/pngimages/699/999/png-clipart-brand-logo-steam-gump-s.png",
     "nintendo": "https://cdn-icons-png.flaticon.com/512/871/871380.png"
+  }
+
+  const addToDb = (completed, gameObject) => {
+    completed
+      ? gameObject.completed = true
+      : gameObject.radar = true
+      dispatch(addGame(gameObject))
+      gameService.addGame(gameObject, user.token)
+      
+  }
+
+  const changeStatus = (completed) => {
+
+    const reqObject = {
+      slug: game.slug,
+      completed: completed
+    }
+
+    gameService.updateGame(reqObject, user.token)
+    dispatch(updateGame(reqObject))
+
+  }
+
+  const handleButton = (completed) => {
+    const isInUser = user.games.some(obj => obj.slug === game.slug)
+
+    const gameObject = {
+      slug: game.slug,
+      completed: false,
+      radar: false, 
+      user: user.id
+    }
+
+    isInUser
+      ? changeStatus(completed, gameObject)
+      : addToDb(completed, gameObject)
+  }
+
+
+  const buttonStyle = {
+    backgroundColor: 'blue',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '5px 10px',
+    cursor: 'pointer',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+    transition: 'background-color 0.3s ease',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontSize: '12px',
+    marginBottom: '5px'
   }
 
   return (
@@ -31,8 +90,8 @@ const Game = ({game}) => {
             ) : null
           ))}
         </div>
-        <button>Radar</button>
-        <button>Finished</button>
+        <button style={buttonStyle} onClick={() => handleButton(false)}>Radar</button>
+        <button style={buttonStyle} onClick={() => handleButton(true)}>Finished</button>
       </div>
     </div>
   )
