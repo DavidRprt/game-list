@@ -2,14 +2,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import gameService from "../services/gameService"
 import { addGame, updateGame } from '../reducers/userReducer'
 import { GiDart, GiFinishLine } from "react-icons/gi"
+import { useState, useEffect } from "react"
 
 const Game = ({game}) => {
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+
+  useEffect(() => {
+    if (user !== false) setIsButtonDisabled(false)
+  }, [user])
   
   const platforms = game.stores.map(o => o.store.slug)
-  
+
+  const isRadar = user && user.games && user.games.some(obj => obj.slug === game.slug && obj.radar === true)
+  const isCompleted = user && user.games && user.games.some(obj => obj.slug === game.slug && obj.completed === true)
+
   const platformIcons = {
     "playstation-store": "https://cdn-icons-png.flaticon.com/512/1/1443.png",
     "xbox-store": "https://cdn-icons-png.flaticon.com/512/1/1321.png",
@@ -26,6 +34,8 @@ const Game = ({game}) => {
       
   }
 
+
+
   const changeStatus = (completed) => {
 
     const reqObject = {
@@ -38,7 +48,10 @@ const Game = ({game}) => {
 
   }
 
+
+
   const handleButton = (completed) => {
+
     const isInUser = user.games.some(obj => obj.slug === game.slug)
 
     const gameObject = {
@@ -55,18 +68,18 @@ const Game = ({game}) => {
 
 
   return (
-  <div class="flex justify-center">
+  <div className="flex justify-center">
     
-    <div class="block max-w-sm rounded-lg bg-gray-50 shadow-lg ">
+    <div className="block max-w-sm rounded-lg bg-gray-50 shadow-lg ">
       <a href="#!">
         <img
-          class="rounded-t-lg h-[200px] lg:h-[180px] w-fit"
+          className="rounded-t-lg h-[200px] lg:h-[180px] w-fit"
           src={game.background_image}
           alt="game cover" />
       </a>
-      <div class="p-6 flex flex-col">
+      <div className="p-6 flex flex-col">
         <h1
-          class="mb-2 text-xl font-medium text-black">
+          className="mb-2 text-xl font-medium text-black">
           {game.name}
         </h1>
         <div className="flex flex-row gap-3 text-black md:text-sm lg:text-md">
@@ -85,8 +98,18 @@ const Game = ({game}) => {
           ) : null
          ))}
         </div>
-        <button className="bg-white hover:bg-red-800 text-red-900 font-semibold hover:text-white py-1 px-2 border border-red-900 hover:border-transparent rounded mb-3 flex flex-row items-center gap-2 justify-center"  onClick={() => handleButton(false)}>Add to my radar <GiDart /> </button>
-        <button className="bg-white hover:bg-blue-800 text-blue-900 font-semibold hover:text-white py-1 px-2 border border-blue-900 hover:border-transparent rounded mb-3 flex flex-row items-center gap-2 justify-center"  onClick={() => handleButton(true)}>Add to my completed <GiFinishLine /> </button>
+        <button
+          disabled={isButtonDisabled}
+          className={`bg-white text-red-900 font-semibold py-1 px-2 border border-red-900 rounded mb-3 flex flex-row items-center gap-2 justify-center hover:bg-red-800 ${isButtonDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-white hover:border-transparent"}`}
+          onClick={() => handleButton(false)}>
+          {isRadar ? "Remove from my radar" : "Add to my radar"} <GiDart />
+        </button>
+        <button
+          disabled={isButtonDisabled}
+          className={`bg-white text-blue-900 font-semibold py-1 px-2 border border-blue-900 rounded mb-3 flex flex-row items-center gap-2 justify-center hover:bg-blue-800 ${isButtonDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-white hover:border-transparent"}`}
+          onClick={() => handleButton(true)}>
+          {isCompleted ? "Remove from completed" : "Add to completed"}<GiFinishLine />
+        </button>
       </div>
     </div>
   </div>

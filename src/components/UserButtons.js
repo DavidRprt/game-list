@@ -21,8 +21,10 @@ const UserButtons = () => {
             </div>
         ) : (
             <div className='flex gap-3 flex-col mt-3 lg:mt-0 lg:flex-row'>
-                <p className="py-2 px-4">{user.username}</p>
-                <button className="bg-transparent hover:bg-red-800 text-red-900 font-semibold hover:text-white py-2 px-4 border border-red-900 hover:border-transparent rounded" onClick={handleLogout}>Log out</button>
+                <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                  <span className="font-medium text-gray-600 dark:text-gray-300">{user.username.substring(0, 2).toUpperCase()}</span>
+                </div>
+                <button className="bg-white hover:bg-red-800 text-red-900 font-semibold hover:text-white py-2 px-4 border border-red-900 hover:border-transparent rounded" onClick={handleLogout}>Log out</button>
             </div>
         )}
       
