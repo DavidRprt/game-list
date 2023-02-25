@@ -8,23 +8,13 @@ const Discover = () => {
   
   const latestGames = useQuery('latestGames', getLatest)
 
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gridGap: "20px",
-    maxWidth: "1200px",
-    margin: "0 auto",
-    gridAutoRows: "minmax(300px, auto)"
-  }
-
   if (latestGames.isLoading) return (<LoadingSpinner />)
  
-
   else
     return(
-      <div>
-        <h1>Discover games</h1>
-          <div style={gridStyle}>
+      <div className="flex justify-center flex-col items-center px-7 font-medium">
+        <h1 className='text-2xl my-5'>Discover games</h1>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-3 xl:grid-cols-4">
             {latestGames.data.results.map(game => <Game key={game.id} game={game}/>)}
           </div>
       </div>

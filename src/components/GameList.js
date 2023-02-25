@@ -6,14 +6,6 @@ import LoadingSpinner from './Loading'
 
 const GameList = ({gamesList}) => {
 
-    const gridStyle = {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-        gridGap: "20px",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        gridAutoRows: "minmax(300px, auto)"
-      }
     
       
   const myGames = useQuery(
@@ -25,8 +17,10 @@ const GameList = ({gamesList}) => {
 
   else
     return (
-        <div style={gridStyle}>
+        <div className="flex justify-center flex-col items-center px-7">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-3 xl:grid-cols-4">
           {myGames.data.map(game => <Game key={game.id} game={game}/>)}
+          </div>
         </div>
        
     )

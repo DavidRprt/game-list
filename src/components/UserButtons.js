@@ -6,25 +6,6 @@ const UserButtons = () => {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
-    const boxStyle = {
-        display: 'flex',
-        gap: '10px'
-    }
-
-    const buttonStyle = {
-        backgroundColor: 'maroon',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        padding: '5px 10px',
-        cursor: 'pointer',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-        transition: 'background-color 0.3s ease',
-        fontFamily: 'sans-serif',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        fontSize: '12px',
-      }
       
     const handleLogout = () => {
         window.localStorage.clear()
@@ -34,14 +15,14 @@ const UserButtons = () => {
     return(
     <div>
         {user === false ? (
-            <div>
-                <Link to="/login"><button>Log in</button></Link>
-                <Link to="/signup"><button>Sign up</button></Link>
+            <div className='flex gap-3 flex-col mt-3 lg:mt-0 lg:flex-row'>
+                <Link className="bg-transparent hover:bg-cyan-700 text-cyan-500 font-semibold hover:text-white py-2 px-4 border border-cyan-500 hover:border-transparent rounded" to="/login"><button>Log in</button></Link>
+                <Link className="bg-transparent hover:bg-teal-700 text-teal-500 font-semibold hover:text-white py-2 px-4 border border-teal-500 hover:border-transparent rounded" to="/signup"><button>Sign up</button></Link>
             </div>
         ) : (
-            <div style={boxStyle}>
-                <p>{user.username}</p>
-                <button onClick={handleLogout} style={buttonStyle}>Log out</button>
+            <div className='flex gap-3 flex-col mt-3 lg:mt-0 lg:flex-row'>
+                <p className="py-2 px-4">{user.username}</p>
+                <button className="bg-transparent hover:bg-red-800 text-red-900 font-semibold hover:text-white py-2 px-4 border border-red-900 hover:border-transparent rounded" onClick={handleLogout}>Log out</button>
             </div>
         )}
       

@@ -13,7 +13,10 @@ const HomeScreen = () => {
           <SearchedGames string={searchString}/>
         </div>
       :
-      <h1>HOME</h1>}
+      <div>
+        <h1 className="text-blue-500">HOME</h1>
+        <h3>Latest games</h3>
+      </div>}
     </div>
     )
 }
