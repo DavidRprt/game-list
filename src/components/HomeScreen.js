@@ -1,29 +1,23 @@
-import SearchBar from "./SearchBar"
-import SearchedGames from "./SearchedGames"
-import Carousel from "./Carousel"
-import { useSelector } from 'react-redux'
-import { useQuery } from 'react-query'
-import { getLatest } from '../utils/requests'
+import Game from "./Game";
+import { useQuery } from "react-query";
+import { getLatest } from "../utils/requests";
+import LoadingSpinner from "./Loading";
 
 const HomeScreen = () => {
-  const searchString = useSelector(state => state.search)
-  const latestGames = useQuery('latestGames', getLatest)
+  const latestGames = useQuery("latestGames", getLatest);
 
-    return(
-      <div>
-      <SearchBar />
-      {searchString.length > 3 ?
-        <div>
-          <SearchedGames string={searchString}/>
+  if (latestGames.isLoading) return <LoadingSpinner />;
+  else
+    return (
+      <div className="flex justify-center flex-col items-center px-7 font-medium">
+        <h1 className="text-2xl my-5">Discover games</h1>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-3 xl:grid-cols-4">
+          {latestGames.data.results.map((game) => (
+            <Game key={game.id} game={game} />
+          ))}
         </div>
-      :
-      <div>
-        <h1 className="text-blue-500">HOME</h1>
-        { latestGames.isLoading === false && <Carousel games={latestGames.data} /> }
-     
-      </div>}
-    </div>
-    )
-}
+      </div>
+    );
+};
 
-export default HomeScreen
+export default HomeScreen;
