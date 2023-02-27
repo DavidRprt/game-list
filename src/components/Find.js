@@ -1,20 +1,32 @@
-import SearchBar from "./SearchBar";
-import SearchedGames from "./SearchedGames";
-import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar"
+import SearchedGames from "./SearchedGames"
+import { useSelector } from "react-redux"
+import { useState, useEffect } from "react"
 
 const FindScreen = () => {
-  const searchString = useSelector((state) => state.search);
+  const search = useSelector((state) => state.search)
+  const [searchText, setSearchText] = useState("")
+  const [searchPlatform, setSearchPlatform] = useState("")
+
+  useEffect(() => {
+    if (search.string !== "") {
+      setSearchText(search.string)
+    }
+    if (search.platform !== "") {
+      setSearchPlatform(search.platform)
+    }
+  }, [search.string, search.platform])
 
   return (
     <div>
       <SearchBar />
-      {searchString.length > 3 && (
+      {search.string !== "" && (
         <div>
-          <SearchedGames string={searchString} />
+          <SearchedGames string={searchText} platform={searchPlatform} />
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default FindScreen;
+export default FindScreen

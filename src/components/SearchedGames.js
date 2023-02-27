@@ -1,18 +1,14 @@
-import Loading from "./Loading";
-import Game from "./Game";
-import { useQuery } from "react-query";
-import { getSearch } from "../utils/requests";
+import Loading from "./Loading"
+import Game from "./Game"
+import { useQuery } from "react-query"
+import { getSearch } from "../utils/requests"
 
-const SearchedGames = ({ string }) => {
-  const newString = string.replace(/\s/g, "-");
+const SearchedGames = ({ string, platform }) => {
+  const newString = string.replace(/\s/g, "-")
 
-  const searchedGames = useQuery(
-    ["myData", newString],
-    () => getSearch(newString, { limit: 10 }),
-    {
-      enabled: true,
-    }
-  );
+  const searchedGames = useQuery(["myData", newString, platform], () =>
+    getSearch(newString, platform)
+  )
 
   return (
     <div>
@@ -35,7 +31,7 @@ const SearchedGames = ({ string }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SearchedGames;
+export default SearchedGames

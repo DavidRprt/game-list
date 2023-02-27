@@ -1,12 +1,12 @@
-import Game from "./Game";
-import { useQuery } from "react-query";
-import { getSingleGame } from "../utils/requests";
-import LoadingSpinner from "./Loading";
+import Game from "./Game"
+import { useQuery } from "react-query"
+import { getSingleGame } from "../utils/requests"
+import LoadingSpinner from "./Loading"
 
 const GameList = ({ gamesList }) => {
   const myGames = useQuery(["games", gamesList], () =>
     Promise.all(gamesList.map((game) => getSingleGame(game.slug)))
-  );
+  )
 
   if (myGames.isLoading) return <LoadingSpinner />;
   else
@@ -18,7 +18,7 @@ const GameList = ({ gamesList }) => {
           ))}
         </div>
       </div>
-    );
-};
+    )
+}
 
-export default GameList;
+export default GameList

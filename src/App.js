@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 import { BrowserRouter as Router } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Navbar />
         <RoutesConfig />
+        <Footer />
       </Router>
     </div>
   )

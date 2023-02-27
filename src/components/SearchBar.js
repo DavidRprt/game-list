@@ -1,13 +1,27 @@
 import { useSearch } from "../hooks"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { submitSearch } from "../reducers/searchReducer"
 
 const SearchBar = () => {
+  const dispatch = useDispatch()
   const searchText = useSearch("text")
   const [isOpen, setIsOpen] = useState(false)
-  const [filter, setFilter] = useState("Filter")
+  const [filter, setFilter] = useState("All")
+
+  const handleFilter = (platform) => {
+    setFilter(platform)
+    setIsOpen(!isOpen)
+  }
+
+  console.log(searchText.search)
+  const handleForm = (event) => {
+    event.preventDefault()
+    dispatch(submitSearch({ platform: filter, string: searchText.search }))
+  }
 
   return (
-    <form>
+    <form onSubmit={handleForm}>
       <div className="flex flex-col my-3 mx-5">
         <div className="flex">
           <button
@@ -28,6 +42,7 @@ const SearchBar = () => {
           <div className="relative w-full">
             <input
               type={searchText.type}
+              onChange={searchText.onChange}
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
               placeholder="Find a game..."
               required
@@ -56,32 +71,43 @@ const SearchBar = () => {
                 <button
                   type="button"
                   className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleFilter("All")}
                 >
-                  Mockups
+                  All platforms
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleFilter("PlayStation")}
+                >
+                  PlayStation
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   className="inline-flex w-full px-4 py-2 hover:bg-gray-100 "
+                  onClick={() => handleFilter("XBOX")}
                 >
-                  Templates
+                  XBOX
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleFilter("Nintendo")}
                 >
-                  Design
+                  Nintendo
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   className="inline-flex w-full px-4 py-2 hover:bg-gray-100"
+                  onClick={() => handleFilter("Steam")}
                 >
-                  Logos
+                  Steam
                 </button>
               </li>
             </ul>
