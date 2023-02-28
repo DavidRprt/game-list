@@ -14,7 +14,7 @@ const SearchBar = () => {
     setIsOpen(!isOpen)
   }
 
-  console.log(searchText.search)
+  
   const handleForm = (event) => {
     event.preventDefault()
     dispatch(submitSearch({ platform: filter, string: searchText.search }))

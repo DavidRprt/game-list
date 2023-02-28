@@ -28,6 +28,6 @@ const lastYear = `${currentYear - 1}-${currentMonth}-${currentDay}`
 const nextYear = `${currentYear + 1}-${currentMonth}-${currentDay}`
 
 
-export const popularGames = `${baseUrl}&dates=${lastYear},${currentDate}&ordering=-metacritic&page_size=30&stores=1,2,3,6`
+export const popularGames = `${baseUrl}&dates=${lastYear},${currentDate}&ordering=-metacritic&page_size=24&stores=1,2,3,6`
 export const upcomingGames = `${baseUrl}&dates=${currentDate},${nextYear}&ordering=-added&page_size=10`
 

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { popularGames } from "../utils/api"
 
-export const getLatest = () => axios.get(popularGames).then((res) => res.data)
+export const getLatest = (page) => axios.get(`${popularGames}&page=${page}`).then((res) => res.data)
 
 export const getSingleGame = (slug) => {
   const url = `https://api.rawg.io/api/games/${slug}?key=${process.env.REACT_APP_KEY}`
@@ -21,6 +21,5 @@ export const getSearch = async (searchText, platform) => {
   }
 
   const url = `https://api.rawg.io/api/games?ordering=-metacritic&key=${process.env.REACT_APP_KEY}&search=${searchText}&search_exact=true${stores}`
-  console.log(url)
   return axios.get(url).then((res) => res.data)
 }

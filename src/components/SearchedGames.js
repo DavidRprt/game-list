@@ -17,7 +17,7 @@ const SearchedGames = ({ string, platform }) => {
           <Loading />
         </div>
       ) : (
-        <div className="flex justify-center flex-col items-center px-7">
+        <div className="flex justify-center flex-col items-center px-7 mb-5">
           <h1 className="text-2xl my-5">Search:</h1>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-3 xl:grid-cols-4">
             {searchedGames.data.results

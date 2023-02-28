@@ -1,15 +1,28 @@
-import { useField } from "../hooks";
-import { Link } from "react-router-dom";
+import { useField } from "../hooks"
+import { Link } from "react-router-dom"
+import userService from "../services/userService"
+import { useNavigate } from "react-router-dom"
 
 const SignUpForm = () => {
-  const username = useField("text");
-  const password = useField("password");
+  const username = useField("text")
+  const password = useField("password")
+  const navigate = useNavigate()
 
   const handleForm = async (event) => {
-    event.preventDefault();
-    const userObject = { username: username.value, password: password.value };
-    console.log(userObject);
-  };
+    event.preventDefault()
+    const userObject = {
+      username: username.value.toLowerCase(),
+      password: password.value,
+    }
+    try {
+      await userService.signup(userObject)
+      username.reset()
+      password.reset()
+      navigate("/login")
+    } catch (exception) {
+      console.log(exception.response.data.error)
+    }
+  }
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -71,22 +84,7 @@ const SignUpForm = () => {
         </form>
       </div>
     </div>
-    /*  <div className='signUpForm'>
-        <h2>Sign Up</h2>
-        <form onSubmit={handleForm}>
-          <div>
-            <label>Username: </label>
-            <input type={username.type} value={username.value} onChange={username.onChange}></input>
-          </div>
-          <div>
-            <label>Password: </label>
-            <input type={password.type} value={password.value} onChange={password.onChange}></input>
-          </div>
-          <button type="submit">Sign up</button>
-        </form>
-        <p>Already have an account <Link to="/login">Log in</Link></p>
-      </div> */
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

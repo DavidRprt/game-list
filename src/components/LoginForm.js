@@ -1,35 +1,38 @@
-import { useField } from "../hooks";
-import { Link } from "react-router-dom";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useNavigate } from "react-router-dom";
-import userService from "../services/userService";
-import { useDispatch } from "react-redux";
-import { setUser } from "../reducers/userReducer";
+import { useField } from "../hooks"
+import { Link } from "react-router-dom"
+import { LockClosedIcon } from "@heroicons/react/20/solid"
+import { useNavigate } from "react-router-dom"
+import userService from "../services/userService"
+import { useDispatch } from "react-redux"
+import { setUser } from "../reducers/userReducer"
 
 const LoginForm = () => {
-  const username = useField("text");
-  const password = useField("password");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const username = useField("text")
+  const password = useField("password")
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleForm = async (event) => {
     event.preventDefault();
-    const userObject = { username: username.value, password: password.value };
+    const userObject = {
+      username: username.value.toLowerCase(),
+      password: password.value,
+    }
 
     try {
-      const user = await userService.login(userObject);
+      const user = await userService.login(userObject)
       const storageObject = {
         id: user.id,
         token: user.token,
         username: user.username,
-      };
-      window.localStorage.setItem("loggedUser", JSON.stringify(storageObject));
-      dispatch(setUser(user));
-      username.reset();
-      password.reset();
-      navigate("/");
+      }
+      window.localStorage.setItem("loggedUser", JSON.stringify(storageObject))
+      dispatch(setUser(user))
+      username.reset()
+      password.reset()
+      navigate("/")
     } catch (exception) {
-      console.log(exception.response.data.error);
+      console.log(exception.response.data.error)
     }
   };
 
@@ -98,7 +101,7 @@ const LoginForm = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

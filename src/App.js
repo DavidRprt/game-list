@@ -18,7 +18,7 @@ function App() {
   }, [dispatch])
 
   return (
-    <div className="App">
+    <div className="flex flex-col min-h-screen">
       <Router>
         <Navbar />
         <RoutesConfig />

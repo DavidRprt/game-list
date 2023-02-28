@@ -2,7 +2,7 @@ import { BsGithub, BsTwitter, BsInstagram } from "react-icons/bs"
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 px-4 py-6 flex justify-between items-center">
+    <footer className="bg-gray-800 px-4 py-6 flex justify-between items-center mt-auto">
       <h4 className="text-white text-lg">
         © 2023. All Rights Reserved.
       </h4>
