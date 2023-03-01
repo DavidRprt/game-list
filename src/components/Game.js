@@ -1,28 +1,28 @@
-import { useSelector, useDispatch } from "react-redux";
-import gameService from "../services/gameService";
-import { addGame, updateGame } from "../reducers/userReducer";
-import { GiDart, GiFinishLine } from "react-icons/gi";
-import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux"
+import gameService from "../services/gameService"
+import { addGame, updateGame } from "../reducers/userReducer"
+import { GiDart, GiFinishLine } from "react-icons/gi"
+import { useState, useEffect } from "react"
 
 const Game = ({ game }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
-    if (user !== false) setIsButtonDisabled(false);
-  }, [user]);
+    if (user !== false) setIsButtonDisabled(false)
+  }, [user])
 
-  const platforms = game.stores.map((o) => o.store.slug);
+  const platforms = game.stores.map((o) => o.store.slug)
 
   const isRadar =
     user &&
     user.games &&
-    user.games.some((obj) => obj.slug === game.slug && obj.radar === true);
+    user.games.some((obj) => obj.slug === game.slug && obj.radar === true)
   const isCompleted =
     user &&
     user.games &&
-    user.games.some((obj) => obj.slug === game.slug && obj.completed === true);
+    user.games.some((obj) => obj.slug === game.slug && obj.completed === true)
 
   const platformIcons = {
     "playstation-store": "https://cdn-icons-png.flaticon.com/512/1/1443.png",
@@ -34,7 +34,7 @@ const Game = ({ game }) => {
   const addToDb = (completed, gameObject) => {
     completed ? (gameObject.completed = true) : (gameObject.radar = true);
     dispatch(addGame(gameObject));
-    gameService.addGame(gameObject, user.token);
+    gameService.addGame(gameObject, user.token)
   };
 
   const changeStatus = (completed) => {
@@ -43,12 +43,12 @@ const Game = ({ game }) => {
       completed: completed,
     };
 
-    gameService.updateGame(reqObject, user.token);
-    dispatch(updateGame(reqObject));
+    gameService.updateGame(reqObject, user.token)
+    dispatch(updateGame(reqObject))
   };
 
   const handleButton = (completed) => {
-    const isInUser = user.games.some((obj) => obj.slug === game.slug);
+    const isInUser = user.games.some((obj) => obj.slug === game.slug)
 
     const gameObject = {
       slug: game.slug,
@@ -59,7 +59,7 @@ const Game = ({ game }) => {
 
     isInUser
       ? changeStatus(completed, gameObject)
-      : addToDb(completed, gameObject);
+      : addToDb(completed, gameObject)
   };
 
   return (
@@ -116,7 +116,7 @@ const Game = ({ game }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Game;
+export default Game

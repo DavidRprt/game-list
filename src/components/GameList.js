@@ -8,7 +8,7 @@ const GameList = ({ gamesList }) => {
     Promise.all(gamesList.map((game) => getSingleGame(game.slug)))
   )
 
-  if (myGames.isLoading) return <LoadingSpinner />;
+  if (myGames.isLoading) return <LoadingSpinner />
   else
     return (
       <div className="flex justify-center flex-col items-center px-7 mb-5">

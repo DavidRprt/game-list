@@ -2,17 +2,27 @@ import Game from "./Game"
 import { useQuery } from "react-query"
 import { getLatest } from "../utils/requests"
 import LoadingSpinner from "./Loading"
-import { useState } from "react"
+import Dropdown from "./DropdownMenu"
+import { useState, useEffect } from "react"
 
 const HomeScreen = () => {
   const [page, setPage] = useState(1)
-  const latestGames = useQuery(["latestGames", page], () => getLatest(page))
+  const [filter, setFilter] = useState("Last year")
+  const latestGames = useQuery(["latestGames", page, filter], () => getLatest(page, filter))
+
+  useEffect(() => {
+    setPage(1)
+  }, [filter])
+
 
   if (latestGames.isLoading) return <LoadingSpinner />
   else
     return (
       <div className="flex justify-center flex-col items-center px-7 font-medium">
-        <h1 className="text-2xl my-5">Discover games</h1>
+        <h1 className="text-2xl mt-5">Top Rated Games</h1>
+        <div className="flex justify-start items-start w-full">
+          <Dropdown filter={filter} setFilter={setFilter} />
+        </div>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-3 xl:grid-cols-4">
           {latestGames.data.results.map((game) => (
             <Game key={game.id} game={game} />
