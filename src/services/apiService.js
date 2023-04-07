@@ -7,7 +7,7 @@ const getLatest = async () => {
 };
 
 const getOwn = async (id) => {
-  const url = `http://localhost:3001/api/games/${id}`;
+  const url = `/api/games/${id}`;
   const response = await axios.get(url);
   return response.data;
 };

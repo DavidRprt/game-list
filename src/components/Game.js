@@ -3,6 +3,7 @@ import gameService from "../services/gameService"
 import { addGame, updateGame } from "../reducers/userReducer"
 import { GiDart, GiFinishLine } from "react-icons/gi"
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 const Game = ({ game }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -55,7 +56,9 @@ const Game = ({ game }) => {
       completed: false,
       radar: false,
       user: user.id,
-    };
+    }
+  
+
 
     isInUser
       ? changeStatus(completed, gameObject)
@@ -65,13 +68,13 @@ const Game = ({ game }) => {
   return (
     <div className="flex justify-center">
       <div className="block max-w-sm rounded-lg bg-gray-50 shadow-lg ">
-        <a href="#!">
+        <Link to={`/games/${game.slug}`}>
           <img
             className="rounded-t-lg h-[200px] lg:h-[180px] w-fit"
             src={game.background_image}
             alt="game cover"
           />
-        </a>
+        </Link>
         <div className="p-6 flex flex-col">
           <h1 className="mb-2 text-xl font-medium text-black">{game.name}</h1>
           <div className="flex flex-row gap-3 text-black md:text-sm lg:text-md">
