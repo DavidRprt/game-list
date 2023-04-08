@@ -6,6 +6,7 @@ import SignUpForm from "../components/SignUpForm";
 import MyGames from "../components/MyGames";
 import HomeScreen from "../components/HomeScreen";
 import Info from "../components/Info";
+import NotFound from "../components/NotFound";
 
 const RoutesConfig = () => {
   return (
@@ -16,7 +17,8 @@ const RoutesConfig = () => {
       <Route path="/radar" element={<MyGames completed={false} />} />
       <Route path="/discover" element={<Discover />} />
       <Route path="/completed" element={<MyGames completed={true} />} />
-      <Route path="/games/:slug" element={<Info />} />
+      <Route path="/games/:slug" element={<Info />} />{" "}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 };
