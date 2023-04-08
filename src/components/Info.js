@@ -39,29 +39,50 @@ const Info = () => {
     const platforms = stores.map((o) => o.store.slug)
 
    return (
-     <div>
-       <h1>{name}</h1>
-       <img src={background_image} alt={name} />
-       <p>{description_raw}</p>
-       <p>Metacritic: {metacritic}</p>
-       <p>Developed by</p>
-       <ul>
-         {developers.map((developer) => (
-           <li key={developer.id}>{developer.name}</li>
-         ))}
-       </ul>
-       <div className="platforms flex justify-center flex-wrap mt-3 mb-3">
-        <p>Available on: </p>
-         {platforms.map((platform, index) =>
-           platformIcons[platform] ? (
-             <img
-               key={index}
-               src={platformIcons[platform]}
-               alt={platform.name}
-               className="w-6 h-6 mr-5"
-             />
-           ) : null
-         )}
+     <div className="flex flex-col justify-center">
+       <div className="flex flex-col items-center ">
+         <h1
+           className="my-2 text-center"
+           style={{
+             fontSize: "2.5rem",
+             fontWeight: "bold",
+             textTransform: "uppercase",
+           }}
+         >
+           {name}
+         </h1>
+         <img
+           className="rounded-lg w-11/12"
+           src={background_image}
+           alt="game cover"
+         />
+         <p className="mx-4 my-2 lg:mx-10">{description_raw}</p>
+       </div>
+       <div className="flex justify-start my-3 flex-col self-center">
+         <div className="flex items-center">
+           <p>Available on:</p>
+           <div className="flex ml-2">
+             {platforms.map((platform, index) =>
+               platformIcons[platform] ? (
+                 <img
+                   key={index}
+                   src={platformIcons[platform]}
+                   alt={platform.name}
+                   className="w-6 h-6 mr-5"
+                 />
+               ) : null
+             )}
+           </div>
+         </div>
+         <p>Metacritic: {metacritic}</p>
+         <div className="flex items-center">
+           <p>Developed by </p>
+           <ul className="ml-2">
+             {developers.map((developer) => (
+               <li key={developer.id}>{developer.name}</li>
+             ))}
+           </ul>
+         </div>
        </div>
      </div>
    )
